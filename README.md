@@ -1,4 +1,4 @@
-# Загрузка изобращений в Инстаграм
+# Загрузка изображений космической тематики в Инстаграм
 
 Скрипт для загрузки изображений из SpaceX и Hubble в профиль Инстаграм
 
@@ -23,17 +23,17 @@ pip install -r requirements.txt
 ### Пример запуска
 Скачивание последних изображений из SpaceX
 ```
-python fetch_spacex
+python fetch_spacex.py
 ```
 
 Скачивание изображений Hubble из коллекции, которая указана в файле .env
 ```
-python fetch_hubble
+python fetch_hubble.py
 ```
 
 Заргузка скачанных файлов в Instagram
 ```
-python publish_instagram
+python publish_instagram.py
 ```
 
 ### Цель проекта
