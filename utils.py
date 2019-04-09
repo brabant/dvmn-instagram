@@ -1,13 +1,13 @@
 import requests
 import os
-from dotenv import load_dotenv
 
 
-load_dotenv()
+def get_base_path():
+    return os.getenv('BASE_PATH', os.path.dirname(__file__))
 
-BASE_PATH = os.getenv('BASE_PATH', os.path.dirname(__file__))
-IMAGES_PATH = os.path.join(BASE_PATH, os.getenv('IMAGE_DIR', 'images'))
-os.makedirs(IMAGES_PATH, exist_ok=True)
+
+def get_images_path():
+    return os.path.join(get_base_path(), os.getenv('IMAGE_DIR', 'images'))
 
 
 def get_extension(filename):
@@ -17,11 +17,12 @@ def get_extension(filename):
 def download_file(url, filename):
     response = requests.get(url)
     response.raise_for_status()
-    if response.status_code != 200:
+    if not response.ok:
         return False
 
-    filepath = os.path.join(IMAGES_PATH, filename)
+    filepath = os.path.join(get_images_path(), filename)
 
     with open(filepath, 'wb') as file:
         file.write(response.content)
         return True
+

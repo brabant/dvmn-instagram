@@ -1,24 +1,27 @@
 import os
+from dotenv import load_dotenv
 from instabot import Bot
-from utils import BASE_PATH, IMAGES_PATH
-
-INSTAGRAM_PATH = os.path.join(BASE_PATH, os.getenv('INSTAGRAM_DIR', 'instagram'))
+from utils import get_base_path, get_images_path
 
 
 def main():
-    os.makedirs(INSTAGRAM_PATH, exist_ok=True)
+    load_dotenv()
 
-    bot = Bot(base_path=INSTAGRAM_PATH)
+    instagram_path = os.path.join(get_base_path(), os.getenv('INSTAGRAM_DIR', 'instagram'))
+    images_path = get_images_path()
+    os.makedirs(instagram_path, exist_ok=True)
+
+    bot = Bot(base_path=instagram_path)
     bot.login(username=os.getenv('INSTAGRAM_LOGIN'), password=os.getenv('INSTAGRAM_PASSWORD'))
 
-    for filename in os.listdir(IMAGES_PATH):
-        image_path = os.path.join(IMAGES_PATH, filename)
+    for filename in os.listdir(images_path):
+        image_path = os.path.join(images_path, filename)
         if os.path.isfile(image_path):
             bot.upload_photo(image_path, caption='')
 
     # remove tmp files
-    for filename in filter(lambda x: x.endswith('.REMOVE_ME'), os.listdir(IMAGES_PATH)):
-        os.unlink(os.path.join(IMAGES_PATH, filename))
+    for filename in filter(lambda x: x.endswith('.REMOVE_ME'), os.listdir(images_path)):
+        os.unlink(os.path.join(images_path, filename))
 
 
 if __name__ == '__main__':
