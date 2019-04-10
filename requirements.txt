@@ -1,4 +1,4 @@
-python-dotenv>=0.10
-requests>=2.21
-instabot>=0.30
-Pillow>=6.0
+python-dotenv>=0.10.*
+requests==2.21.*
+instabot==0.30.*
+Pillow==6.0.*
